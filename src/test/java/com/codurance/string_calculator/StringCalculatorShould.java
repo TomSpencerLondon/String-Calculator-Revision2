@@ -1,6 +1,6 @@
 package com.codurance.string_calculator;
 
-//Create a simple String calculator with a single method:
+// 1. Create a simple String calculator with a single method:
 //
 //class StringCalculator {
 //    int Add(string numbers);
@@ -15,19 +15,25 @@ package com.codurance.string_calculator;
 //        Add("4") // 4
 //        Add("1,2") // 3
 //
-//Allow the Add method to handle an unknown amount of numbers.
+// 2. Allow the Add method to handle an unknown amount of numbers.
 //
 //        Example:
 //
 //        Add("1,2,3,4,5,6,7,8,9") // 45
 //
-// Allow the Add method to recognise newlines as well as commas as separators. The two separator types can be used interchangeably.
+// 3. Allow the Add method to recognise newlines as well as commas as separators. The two separator types can be used interchangeably.
 //
 //        NB: Focus on the happy path - since this is not production code, it's fine if the code crashes if it's given invalid input (e.g. "1,\n2").
 //
 //        Example:
 //
 //        Add("1\n2,3") // 6
+//
+// 4. Optionally support custom separators. To change separator, the beginning of the string will contain a separate line that looks like this: “//<separator>\n<numbers>”
+//
+//        Example:
+//
+//        Add("//;\n1;2") // 3
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -51,7 +57,8 @@ public class StringCalculatorShould {
             "1,2; 3",
             "12,3; 15",
             "19,1,2; 22",
-            "'19\n1'; 20"
+            "'19\n1'; 20",
+            "'//;\n1;2'; 3"
     }, delimiter = ';')
     void return_number_for_input(String input, int output) {
         assertEquals(output, stringCalculator.add(input));

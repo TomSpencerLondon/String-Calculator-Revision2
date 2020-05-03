@@ -1,5 +1,7 @@
 package com.codurance.string_calculator;
 
+import java.util.regex.Pattern;
+
 import static java.util.Arrays.stream;
 
 public class StringCalculator {
@@ -8,7 +10,16 @@ public class StringCalculator {
             return 0;
         }
 
-        return stream(input.split("[,\n]"))
+        String separators = ",\n";
+
+        if(input.startsWith("//")){
+            separators += input.substring(2, input.indexOf("\n"));
+            input = input.substring(input.indexOf("\n") + 1);
+        }
+
+        System.out.println(separators);
+
+        return stream(input.split("["+ separators +"]"))
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
