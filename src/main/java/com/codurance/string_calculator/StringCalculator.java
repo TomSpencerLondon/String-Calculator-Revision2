@@ -1,6 +1,6 @@
 package com.codurance.string_calculator;
 
-import java.util.Arrays;
+import static java.util.Arrays.stream;
 
 public class StringCalculator {
     public int add(String input) {
@@ -8,7 +8,7 @@ public class StringCalculator {
             return 0;
         }
 
-        return Arrays.stream(input.split(","))
+        return stream(input.split(","))
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
