@@ -34,12 +34,23 @@ package com.codurance.string_calculator;
 //        Example:
 //
 //        Add("//;\n1;2") // 3
+//
+// 5. Calling Add with a negative number will throw an exception negatives not allowed, and the negative that was passed.
+//
+//        If there are multiple negatives, show all of them in the exception message.
+//
+//        Example:
+//
+//        Add("1,-2,-3") // error: negatives not allowed: -2 -3
 
+import com.codurance.string_calculator.StringCalculator.MinusNumberNotAllowedException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorShould {
     StringCalculator stringCalculator;
@@ -61,7 +72,15 @@ public class StringCalculatorShould {
             "'//;\n1;2'; 3",
             "'//;$\n1;2$3'; 6"
     }, delimiter = ';')
-    void return_number_for_input(String input, int output) {
+    void return_number_for_input(String input, int output) throws MinusNumberNotAllowedException {
         assertEquals(output, stringCalculator.add(input));
+    }
+
+    @Test
+    void throws_exception_for_negative_numbers() {
+        MinusNumberNotAllowedException exception = assertThrows(MinusNumberNotAllowedException.class, () ->
+            stringCalculator.add("1,-2,-3"));
+
+        assertEquals("negatives not allowed: -2 -3", exception.getMessage());
     }
 }

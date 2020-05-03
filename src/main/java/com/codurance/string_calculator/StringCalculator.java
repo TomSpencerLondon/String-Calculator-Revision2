@@ -1,11 +1,10 @@
 package com.codurance.string_calculator;
 
-import java.util.regex.Pattern;
-
-import static java.util.Arrays.stream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringCalculator {
-    public int add(String input) {
+    public int add(String input) throws MinusNumberNotAllowedException {
         if (input.isEmpty()){
             return 0;
         }
@@ -19,8 +18,27 @@ public class StringCalculator {
 
         System.out.println(separators);
 
-        return stream(input.split("["+ separators +"]"))
-                .mapToInt(Integer::parseInt)
-                .sum();
+        int result = 0;
+        List<String> negatives = new ArrayList<>();
+
+        for (String number: input.split("[" + separators + "]")) {
+            if(Integer.parseInt(number) > 0){
+                result += Integer.parseInt(number);
+            }else{
+                negatives.add(number);
+            }
+        }
+
+        if(negatives.isEmpty()){
+            return result;
+        }else{
+            throw new MinusNumberNotAllowedException(negatives);
+        }
+    }
+
+    static class MinusNumberNotAllowedException extends Exception {
+        public MinusNumberNotAllowedException(List<String> negatives) {
+            super("negatives not allowed: " + String.join(" ", negatives));
+        }
     }
 }
