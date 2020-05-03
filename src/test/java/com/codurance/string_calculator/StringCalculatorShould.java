@@ -29,5 +29,6 @@ public class StringCalculatorShould {
     @Test
     void return_4_for_string_4() {
         StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(4, stringCalculator.add("4"));
     }
 }
