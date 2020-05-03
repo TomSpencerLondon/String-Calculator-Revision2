@@ -8,10 +8,7 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] numbers = input.split(",");
-
-
-        return Arrays.stream(numbers)
+        return Arrays.stream(input.split(","))
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
