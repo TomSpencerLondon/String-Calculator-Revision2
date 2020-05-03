@@ -31,11 +31,11 @@ public class StringCalculatorShould {
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "'',0",
-            "4, 4",
-            "5, 5"
-    })
+    @CsvSource(value = {
+            "'';0",
+            "4; 4",
+            "5; 5"
+    }, delimiter = ';')
     void return_number_for_input(String input, int output) {
         assertEquals(output, stringCalculator.add(input));
     }
