@@ -31,4 +31,10 @@ public class StringCalculatorShould {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(4, stringCalculator.add("4"));
     }
+
+    @Test
+    void return_5_for_string_5() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(5, stringCalculator.add("5"));
+    }
 }

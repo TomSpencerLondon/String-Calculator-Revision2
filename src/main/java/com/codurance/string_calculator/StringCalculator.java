@@ -6,6 +6,6 @@ public class StringCalculator {
             return 0;
         }
 
-        return 4;
+        return Integer.parseInt(String.valueOf(input.charAt(0)));
     }
 }
