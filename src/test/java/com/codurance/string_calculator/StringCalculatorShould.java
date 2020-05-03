@@ -50,7 +50,8 @@ public class StringCalculatorShould {
             "5; 5",
             "1,2; 3",
             "12,3; 15",
-            "19,1,2; 22"
+            "19,1,2; 22",
+            "'19\n1'; 20"
     }, delimiter = ';')
     void return_number_for_input(String input, int output) {
         assertEquals(output, stringCalculator.add(input));

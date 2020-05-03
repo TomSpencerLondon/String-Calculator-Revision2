@@ -8,7 +8,7 @@ public class StringCalculator {
             return 0;
         }
 
-        return stream(input.split(","))
+        return stream(input.split("[,\n]"))
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
