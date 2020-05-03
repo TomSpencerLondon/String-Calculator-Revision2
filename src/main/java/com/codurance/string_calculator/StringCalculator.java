@@ -1,5 +1,7 @@
 package com.codurance.string_calculator;
 
+import java.util.Arrays;
+
 public class StringCalculator {
     public int add(String input) {
         if (input.isEmpty()){
@@ -8,11 +10,9 @@ public class StringCalculator {
 
         String[] numbers = input.split(",");
 
-        int result = 0;
 
-        for (String num: numbers) {
-            result += Integer.parseInt(String.valueOf(num));
-        }
-        return result;
+        return Arrays.stream(numbers)
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
 }
