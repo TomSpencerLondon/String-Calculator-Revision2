@@ -15,26 +15,28 @@ package com.codurance.string_calculator;
 //        Add("4") // 4
 //        Add("1,2") // 3
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StringCalculatorShould {
-    @Test
-    void return_0_for_empty_string() {
-        StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(0, stringCalculator.add(""));
+    StringCalculator stringCalculator;
+
+    @BeforeEach
+    void setUp() {
+        stringCalculator = new StringCalculator();
     }
 
-    @Test
-    void return_4_for_string_4() {
-        StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(4, stringCalculator.add("4"));
-    }
-
-    @Test
-    void return_5_for_string_5() {
-        StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(5, stringCalculator.add("5"));
+    @ParameterizedTest
+    @CsvSource({
+            "'',0",
+            "4, 4",
+            "5, 5"
+    })
+    void return_number_for_input(String input, int output) {
+        assertEquals(output, stringCalculator.add(input));
     }
 }
