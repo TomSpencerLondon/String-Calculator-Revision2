@@ -2,6 +2,7 @@ package com.codurance.string_calculator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
     public int add(String input) throws MinusNumberNotAllowedException {
@@ -16,7 +17,6 @@ public class StringCalculator {
             input = input.substring(input.indexOf("\n") + 1);
         }
 
-        System.out.println(separators);
 
         int result = 0;
         List<String> negatives = new ArrayList<>();
