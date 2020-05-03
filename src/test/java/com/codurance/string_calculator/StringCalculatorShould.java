@@ -58,7 +58,8 @@ public class StringCalculatorShould {
             "12,3; 15",
             "19,1,2; 22",
             "'19\n1'; 20",
-            "'//;\n1;2'; 3"
+            "'//;\n1;2'; 3",
+            "'//;$\n1;2$3'; 6"
     }, delimiter = ';')
     void return_number_for_input(String input, int output) {
         assertEquals(output, stringCalculator.add(input));
