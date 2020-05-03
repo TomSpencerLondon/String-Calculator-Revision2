@@ -16,7 +16,6 @@ package com.codurance.string_calculator;
 //        Add("1,2") // 3
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -32,9 +31,10 @@ public class StringCalculatorShould {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "'';0",
+            "''; 0",
             "4; 4",
-            "5; 5"
+            "5; 5",
+            "1,2; 3"
     }, delimiter = ';')
     void return_number_for_input(String input, int output) {
         assertEquals(output, stringCalculator.add(input));
