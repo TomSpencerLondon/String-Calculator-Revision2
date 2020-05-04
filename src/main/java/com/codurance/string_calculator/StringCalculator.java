@@ -13,8 +13,8 @@ public class StringCalculator {
         String[] numbers = getNumbersFrom(input);
 
         return Arrays.stream(numbers)
-                .filter(n -> Integer.parseInt(n) < 1000)
                 .mapToInt(Integer::parseInt)
+                .filter(n -> n <= 1000)
                 .sum();
     }
 
