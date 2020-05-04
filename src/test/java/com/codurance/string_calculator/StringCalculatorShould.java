@@ -43,7 +43,7 @@ package com.codurance.string_calculator;
 //
 //        Add("1,-2,-3") // error: negatives not allowed: -2 -3
 
-// 7. Ignore numbers bigger than 1000
+// 6. Ignore numbers bigger than 1000
 // Numbers bigger than 1000 should be ignored.
 //
 //        Example:
@@ -77,7 +77,8 @@ public class StringCalculatorShould {
             "19,1,2; 22",
             "'19\n1'; 20",
             "'//;\n1;2'; 3",
-            "'//;$\n1;2$3'; 6"
+            "'//;$\n1;2$3'; 6",
+            "'1001,2'; 2"
     }, delimiter = ';')
     void return_number_for_input(String input, int output) throws MinusNumberNotAllowedException {
         assertEquals(output, stringCalculator.add(input));
