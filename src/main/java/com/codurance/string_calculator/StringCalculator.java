@@ -1,9 +1,7 @@
 package com.codurance.string_calculator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
@@ -12,6 +10,14 @@ public class StringCalculator {
             return 0;
         }
 
+        String[] numbers = getNumbersFrom(input);
+
+        return Arrays.stream(numbers)
+                .mapToInt(Integer::parseInt)
+                .sum();
+    }
+
+    private String[] getNumbersFrom(String input) throws MinusNumberNotAllowedException {
         String separators = ",\n";
 
         if(input.startsWith("//")){
@@ -20,12 +26,8 @@ public class StringCalculator {
         }
 
         String[] numbers = splitInput(input, separators);
-
         checkForNegatives(numbers);
-
-        return Arrays.stream(numbers)
-                .mapToInt(Integer::parseInt)
-                .sum();
+        return numbers;
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
