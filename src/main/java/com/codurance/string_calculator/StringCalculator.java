@@ -19,18 +19,27 @@ public class StringCalculator {
             input = input.substring(input.indexOf("\n") + 1);
         }
 
-        List<String> negatives = Arrays.stream(input.split("[" + separators + "]"))
+        String[] numbers = splitInput(input, separators);
+
+        checkForNegatives(numbers);
+
+        return Arrays.stream(numbers)
+                .mapToInt(Integer::parseInt)
+                .sum();
+    }
+
+    private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
+        List<String> negatives = Arrays.stream(numbers)
                 .filter(n -> Integer.parseInt(n) < 0)
                 .collect(Collectors.toList());
 
         if(!negatives.isEmpty()){
             throw new MinusNumberNotAllowedException(negatives);
         }
+    }
 
-        return Arrays.stream(input.split("[" + separators + "]"))
-                .mapToInt(Integer::parseInt)
-                .sum();
-
+    private String[] splitInput(String input, String separators) {
+        return input.split("[" + separators + "]");
     }
 
     static class MinusNumberNotAllowedException extends Exception {
