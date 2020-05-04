@@ -43,6 +43,13 @@ package com.codurance.string_calculator;
 //
 //        Add("1,-2,-3") // error: negatives not allowed: -2 -3
 
+// 7. Ignore numbers bigger than 1000
+// Numbers bigger than 1000 should be ignored.
+//
+//        Example:
+//
+//        Add("1001, 2") // 2
+
 import com.codurance.string_calculator.StringCalculator.MinusNumberNotAllowedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

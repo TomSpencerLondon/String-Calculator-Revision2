@@ -1,8 +1,10 @@
 package com.codurance.string_calculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class StringCalculator {
     public int add(String input) throws MinusNumberNotAllowedException {
@@ -17,23 +19,18 @@ public class StringCalculator {
             input = input.substring(input.indexOf("\n") + 1);
         }
 
+        List<String> negatives = Arrays.stream(input.split("[" + separators + "]"))
+                .filter(n -> Integer.parseInt(n) < 0)
+                .collect(Collectors.toList());
 
-        int result = 0;
-        List<String> negatives = new ArrayList<>();
-
-        for (String number: input.split("[" + separators + "]")) {
-            if(Integer.parseInt(number) > 0){
-                result += Integer.parseInt(number);
-            }else{
-                negatives.add(number);
-            }
-        }
-
-        if(negatives.isEmpty()){
-            return result;
-        }else{
+        if(!negatives.isEmpty()){
             throw new MinusNumberNotAllowedException(negatives);
         }
+
+        return Arrays.stream(input.split("[" + separators + "]"))
+                .mapToInt(Integer::parseInt)
+                .sum();
+
     }
 
     static class MinusNumberNotAllowedException extends Exception {
