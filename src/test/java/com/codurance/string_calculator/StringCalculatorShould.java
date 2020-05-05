@@ -49,6 +49,11 @@ package com.codurance.string_calculator;
 //        Example:
 //
 //        Add("1001, 2") // 2
+//
+// 7. Separators can be of any length if
+//  surrounded by square brackets.
+//        Example:
+//        Add("//[***]\n1***2***3") // 6
 
 import com.codurance.string_calculator.StringCalculator.MinusNumberNotAllowedException;
 import org.junit.jupiter.api.BeforeEach;
@@ -77,8 +82,8 @@ public class StringCalculatorShould {
             "19,1,2; 22",
             "'19\n1'; 20",
             "'//;\n1;2'; 3",
-            "'//;$\n1;2$3'; 6",
-            "'1001,2'; 2"
+            "'1001,2'; 2",
+            "'//[***]\n1***2***3'; 6"
     }, delimiter = ';')
     void return_number_for_input(String input, int output) throws MinusNumberNotAllowedException {
         assertEquals(output, stringCalculator.add(input));
@@ -90,5 +95,17 @@ public class StringCalculatorShould {
             stringCalculator.add("1,-2,-3"));
 
         assertEquals("negatives not allowed: -2 -3", exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "'//[***]\n1***2***3'; '1,2,3'",
+            "'//[***]\n4***5***6'; '4,5,6'",
+            "'//[***]\n7***8***9'; '7,8,9'",
+            "'//[!!]\n1!!2!!3'; '1,2,3'",
+            "'//;\n1;2;3'; '1,2,3'"
+    }, delimiter = ';')
+    void replaces_custom_separated_numbers_with_comma_separated_numbers(String input, String result) {
+        assertEquals(result, stringCalculator.replaceCustomSeparator(input));
     }
 }

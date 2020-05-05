@@ -10,8 +10,15 @@ public class StringCalculator {
             return 0;
         }
 
-        String separators = getSeparatorsFrom(input);
-        String[] numbers = getNumbers(input, separators);
+        String[] numbers;
+
+        if (input.contains("//")){
+            String sanitizedInput = replaceCustomSeparator(input);
+            numbers = getNumbers(sanitizedInput);
+        } else {
+            numbers = getNumbers(input);
+        }
+
         checkForNegatives(numbers);
 
         return Arrays.stream(numbers)
@@ -20,22 +27,22 @@ public class StringCalculator {
                 .sum();
     }
 
-    private String[] getNumbers(String input, String separators) {
-        String input1 = input;
-        if(input1.startsWith("//")){
-            input1 = input1.substring(input1.indexOf("\n") + 1);
-        }
+    public String replaceCustomSeparator(String input) {
+        String numbers = input.split("\n")[1];
+        String customSeparator;
 
-        return input1.split("[" + separators + "]");
+        if(input.contains("[")){
+            customSeparator = input.substring(input.indexOf('[') + 1, input.indexOf(']'));
+        }else{
+            customSeparator = input.substring(2, input.indexOf("\n"));
+        }
+        String result = numbers.replace(customSeparator, ",");
+
+        return result;
     }
 
-    private String getSeparatorsFrom(String input) {
-        String separators = ",\n";
-
-        if(input.startsWith("//")){
-            separators += input.substring(2, input.indexOf("\n"));
-        }
-        return separators;
+    private String[] getNumbers(String input) {
+        return input.split("[,\n]");
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
