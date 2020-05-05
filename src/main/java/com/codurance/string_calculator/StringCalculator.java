@@ -10,7 +10,9 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] numbers = getNumbersFrom(input);
+        String separators = getSeparatorsFrom(input);
+        String[] numbers = getNumbers(input, separators);
+        checkForNegatives(numbers);
 
         return Arrays.stream(numbers)
                 .mapToInt(Integer::parseInt)
@@ -18,17 +20,22 @@ public class StringCalculator {
                 .sum();
     }
 
-    private String[] getNumbersFrom(String input) throws MinusNumberNotAllowedException {
+    private String[] getNumbers(String input, String separators) {
+        String input1 = input;
+        if(input1.startsWith("//")){
+            input1 = input1.substring(input1.indexOf("\n") + 1);
+        }
+
+        return input1.split("[" + separators + "]");
+    }
+
+    private String getSeparatorsFrom(String input) {
         String separators = ",\n";
 
         if(input.startsWith("//")){
             separators += input.substring(2, input.indexOf("\n"));
-            input = input.substring(input.indexOf("\n") + 1);
         }
-
-        String[] numbers = splitInput(input, separators);
-        checkForNegatives(numbers);
-        return numbers;
+        return separators;
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
@@ -39,10 +46,6 @@ public class StringCalculator {
         if(!negatives.isEmpty()){
             throw new MinusNumberNotAllowedException(negatives);
         }
-    }
-
-    private String[] splitInput(String input, String separators) {
-        return input.split("[" + separators + "]");
     }
 
     static class MinusNumberNotAllowedException extends Exception {
