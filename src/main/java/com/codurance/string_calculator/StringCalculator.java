@@ -27,7 +27,7 @@ public class StringCalculator {
                 .sum();
     }
 
-    public String replaceCustomSeparator(String input) {
+    private String replaceCustomSeparator(String input) {
         String numbers = input.split("\n")[1];
         String customSeparator;
 

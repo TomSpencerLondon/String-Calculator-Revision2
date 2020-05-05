@@ -97,15 +97,4 @@ public class StringCalculatorShould {
         assertEquals("negatives not allowed: -2 -3", exception.getMessage());
     }
 
-    @ParameterizedTest
-    @CsvSource(value = {
-            "'//[***]\n1***2***3'; '1,2,3'",
-            "'//[***]\n4***5***6'; '4,5,6'",
-            "'//[***]\n7***8***9'; '7,8,9'",
-            "'//[!!]\n1!!2!!3'; '1,2,3'",
-            "'//;\n1;2;3'; '1,2,3'"
-    }, delimiter = ';')
-    void replaces_custom_separated_numbers_with_comma_separated_numbers(String input, String result) {
-        assertEquals(result, stringCalculator.replaceCustomSeparator(input));
-    }
 }
