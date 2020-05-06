@@ -32,7 +32,7 @@ public class StringCalculator {
         return numbers;
     }
 
-    private String replaceCustomSeparator(String input) {
+    public String replaceCustomSeparator(String input) {
         String numbers = input.split("\n")[1];
         String customSeparator;
 
@@ -42,7 +42,11 @@ public class StringCalculator {
             customSeparator = input.substring(2, input.indexOf("\n"));
         }
 
-        return numbers.replace(customSeparator, ",");
+        String result = numbers.replace(customSeparator, ",");
+        if(result.contains("%")){
+            result = result.replace("%", ",");
+        }
+        return result;
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
