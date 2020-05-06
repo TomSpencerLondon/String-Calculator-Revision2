@@ -113,5 +113,4 @@ public class StringCalculatorShould {
     void return_comma_separated_from_custom_separated(String input, String result) {
         assertEquals(result, stringCalculator.replaceCustomSeparator(input));
     }
-
 }

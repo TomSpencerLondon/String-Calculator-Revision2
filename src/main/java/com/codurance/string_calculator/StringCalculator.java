@@ -37,16 +37,13 @@ public class StringCalculator {
         String numbers = input.split("\n")[1];
         String customSeparator;
 
-        if (input.contains("][")) {
-            String temporary = input.substring(input.indexOf('[') + 1, input.lastIndexOf(']'));
-            String[] result = temporary.split(Pattern.quote("]["));
-            for (String s: result) {
+        if (input.contains("[")) {
+            String[] separators = input.substring(input.indexOf('[') + 1, input.lastIndexOf(']')).split(Pattern.quote("]["));
+            for (String s: separators) {
                 numbers = numbers.replace(s, ",");
             }
             return numbers;
-        }else if(input.contains("[")){
-            customSeparator = input.substring(input.indexOf('[') + 1, input.indexOf(']'));
-        }  else {
+        }else {
             customSeparator = input.substring(2, input.indexOf("\n"));
         }
 
