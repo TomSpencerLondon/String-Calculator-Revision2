@@ -2,6 +2,7 @@ package com.codurance.string_calculator;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
@@ -36,16 +37,21 @@ public class StringCalculator {
         String numbers = input.split("\n")[1];
         String customSeparator;
 
-        if(input.contains("[")){
+        if (input.contains("][")) {
+            String temporary = input.substring(input.indexOf('[') + 1, input.lastIndexOf(']'));
+            String[] result = temporary.split(Pattern.quote("]["));
+            for (String s: result) {
+                numbers = numbers.replace(s, ",");
+            }
+            return numbers;
+        }else if(input.contains("[")){
             customSeparator = input.substring(input.indexOf('[') + 1, input.indexOf(']'));
-        }else{
+        }  else {
             customSeparator = input.substring(2, input.indexOf("\n"));
         }
 
         String result = numbers.replace(customSeparator, ",");
-        if(result.contains("%")){
-            result = result.replace("%", ",");
-        }
+
         return result;
     }
 

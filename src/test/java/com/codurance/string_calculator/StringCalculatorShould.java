@@ -106,9 +106,12 @@ public class StringCalculatorShould {
     @ParameterizedTest
     @CsvSource(value = {
             "'//[***]\n1***2***3'; '1,2,3'",
-            "'//[*][%]\n1*2%3'; '1,2,3'"
+            "'//[*][%]\n1*2%3'; '1,2,3'",
+            "'//[!][$]\n1$2!3'; '1,2,3'",
+            "'//[$$][££][%%]\n1$$2££3%%4'; '1,2,3,4'"
     }, delimiter = ';')
     void return_comma_separated_from_custom_separated(String input, String result) {
         assertEquals(result, stringCalculator.replaceCustomSeparator(input));
     }
+
 }
