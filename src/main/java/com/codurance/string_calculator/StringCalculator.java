@@ -10,14 +10,7 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] numbers;
-
-        if (input.contains("//")){
-            String sanitizedInput = replaceCustomSeparator(input);
-            numbers = getNumbers(sanitizedInput);
-        } else {
-            numbers = getNumbers(input);
-        }
+        String[] numbers = getNumbers(input);
 
         checkForNegatives(numbers);
 
@@ -25,6 +18,18 @@ public class StringCalculator {
                 .mapToInt(Integer::parseInt)
                 .filter(n -> n <= 1000)
                 .sum();
+    }
+
+    private String[] getNumbers(String input) {
+        String[] numbers;
+
+        if (input.contains("//")){
+            String sanitizedInput = replaceCustomSeparator(input);
+            numbers = sanitizedInput.split("[,\n]");
+        } else {
+            numbers = input.split("[,\n]");
+        }
+        return numbers;
     }
 
     private String replaceCustomSeparator(String input) {
@@ -38,10 +43,6 @@ public class StringCalculator {
         }
 
         return numbers.replace(customSeparator, ",");
-    }
-
-    private String[] getNumbers(String input) {
-        return input.split("[,\n]");
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
