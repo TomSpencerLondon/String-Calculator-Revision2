@@ -46,8 +46,7 @@ public class StringCalculator {
         if (input.contains("[")) {
             return input.substring(input.indexOf('[') + 1, input.lastIndexOf(']')).split(Pattern.quote("]["));
         }
-        String[] customSeparator = {input.substring(2, input.indexOf("\n"))};
-        return customSeparator;
+        return new String[]{input.substring(2, input.indexOf("\n"))};
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
