@@ -35,7 +35,6 @@ public class StringCalculator {
 
     public String replaceCustomSeparator(String input) {
         String numbers = input.split("\n")[1];
-        String customSeparator;
 
         if (input.contains("[")) {
             String[] separators = input.substring(input.indexOf('[') + 1, input.lastIndexOf(']')).split(Pattern.quote("]["));
@@ -43,13 +42,10 @@ public class StringCalculator {
                 numbers = numbers.replace(s, ",");
             }
             return numbers;
-        }else {
-            customSeparator = input.substring(2, input.indexOf("\n"));
         }
 
-        String result = numbers.replace(customSeparator, ",");
-
-        return result;
+        String customSeparator = input.substring(2, input.indexOf("\n"));
+        return numbers.replace(customSeparator, ",");
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
