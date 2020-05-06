@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class StringCalculator {
     public int add(String input) throws MinusNumberNotAllowedException {
-        if (input.isEmpty()){
+        if (input.isEmpty()) {
             return 0;
         }
 
@@ -24,7 +24,7 @@ public class StringCalculator {
     private String[] getNumbers(String input) {
         String[] numbers;
 
-        if (input.contains("//")){
+        if (input.contains("//")) {
             String sanitizedInput = replaceCustomSeparator(input);
             numbers = sanitizedInput.split("[,\n]");
         } else {
@@ -35,17 +35,19 @@ public class StringCalculator {
 
     public String replaceCustomSeparator(String input) {
         String numbers = input.split("\n")[1];
-
-        if (input.contains("[")) {
-            String[] separators = input.substring(input.indexOf('[') + 1, input.lastIndexOf(']')).split(Pattern.quote("]["));
-            for (String s: separators) {
-                numbers = numbers.replace(s, ",");
-            }
-            return numbers;
+        String[] separators = getSeparators(input);
+        for (String s : separators) {
+            numbers = numbers.replace(s, ",");
         }
+        return numbers;
+    }
 
-        String customSeparator = input.substring(2, input.indexOf("\n"));
-        return numbers.replace(customSeparator, ",");
+    private String[] getSeparators(String input) {
+        if (input.contains("[")) {
+            return input.substring(input.indexOf('[') + 1, input.lastIndexOf(']')).split(Pattern.quote("]["));
+        }
+        String[] customSeparator = {input.substring(2, input.indexOf("\n"))};
+        return customSeparator;
     }
 
     private void checkForNegatives(String[] numbers) throws MinusNumberNotAllowedException {
@@ -53,7 +55,7 @@ public class StringCalculator {
                 .filter(n -> Integer.parseInt(n) < 0)
                 .collect(Collectors.toList());
 
-        if(!negatives.isEmpty()){
+        if (!negatives.isEmpty()) {
             throw new MinusNumberNotAllowedException(negatives);
         }
     }
