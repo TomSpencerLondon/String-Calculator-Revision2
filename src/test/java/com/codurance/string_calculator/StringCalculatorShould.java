@@ -58,6 +58,11 @@ package com.codurance.string_calculator;
 // 8. Allow multiple single-character separators like this: “//[delim1][delim2]\n”
 // Example:
 // Add("//[*][%]\n1*2%3") // 6
+// 9. Handle multiple separators with any character length.
+//
+//        Example:
+//        Add("//[foo][bar]\n1foo2bar3") // 6
+
 
 import com.codurance.string_calculator.StringCalculator.MinusNumberNotAllowedException;
 import org.junit.jupiter.api.BeforeEach;
@@ -88,7 +93,9 @@ public class StringCalculatorShould {
             "'//;\n1;2'; 3",
             "'1001,2'; 2",
             "'//[***]\n1***2***3'; 6",
-            "'//[*][%]\n1*2%3'; 6"
+            "'//[*][%]\n1*2%3'; 6",
+            "'//[***]\n1***2***3'; 6",
+            "'//[foo][bar]\n1foo2bar3'; 6"
     }, delimiter = ';')
     void return_number_for_input(String input, int output) throws MinusNumberNotAllowedException {
         assertEquals(output, stringCalculator.add(input));
