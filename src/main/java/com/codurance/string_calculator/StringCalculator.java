@@ -36,9 +36,8 @@ public class StringCalculator {
         }else{
             customSeparator = input.substring(2, input.indexOf("\n"));
         }
-        String result = numbers.replace(customSeparator, ",");
 
-        return result;
+        return numbers.replace(customSeparator, ",");
     }
 
     private String[] getNumbers(String input) {
